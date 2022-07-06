@@ -13,8 +13,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "win-build": "react-scripts build && move build ../src/public",
-    "lin-build": "react-scripts build && mv build ../src/public",
+    "win-build": "react-scripts build && move build ../public",
+    "lin-build": "react-scripts build && mv build ../public",
     "build-test": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
