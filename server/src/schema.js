@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server');
+const { prisma } = require('./db')
 
 const typeDefs = gql`
   type Post {
@@ -19,58 +20,39 @@ const typeDefs = gql`
   }
 `
 
-const posts = [
-    {
-      id: 1,
-      title: 'GraphQL is ez',
-      content: 'https://graphql.org/',
-      published: true,
-    },
-    {
-      id: 2,
-      title: 'Testing for learning purposes',
-      content: ':)',
-      published: true,
-    },
-    {
-      id: 3,
-      title: 'What is GraphQL?',
-      content: 'GraphQL is a query language for APIs',
-      published: false,
-    },
-]
-
 const resolvers = {
-    Query: {
-        feed: (parent, args) => {
-            return posts.filter((post) => post.published)
-        },
-        post: (parent, args) => {
-            return posts.find((post) => post.id === Number(args.id))
-        },
+  Query: {
+    feed: (parent, args) => {
+      return prisma.post.findMany({
+        where: { published: true },
+      })
     },
-    Mutation: {
-        createDraft: (parent, args) => {
-            posts.push({
-                id: posts.length + 1,
-                title: args.title,
-                content: args.content,
-                published: false,
-            })
-            return posts[posts.length - 1]
-        },
-        publish: (parent, args) => {
-            const postToPublish = posts.find((post) => post.id === Number(args.id))
-            postToPublish.published = true
-            return postToPublish
-        },
+    post: (parent, args) => {
+      return prisma.post.findOne({
+        where: { id: Number(args.id) },
+      })
     },
-    Post: {
-        content: (parent) => parent.content,
-        id: (parent) => parent.id,
-        published: (parent) => parent.published,
-        title: (parent) => parent.title,
+  },
+  Mutation: {
+    createDraft: (parent, args) => {
+      return prisma.post.create({
+        data: {
+          title: args.title,
+          content: args.content,
+        },
+      })  
     },
+    publish: (parent, args) => {
+      return prisma.post.update({
+        where: {
+          id: Number(args.id),
+        },
+        data: {
+          published: true,
+        },
+      })
+    },
+  },
 }
 
 
