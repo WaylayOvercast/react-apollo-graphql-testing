@@ -13,7 +13,7 @@
     "prisma-graphql": "^0.0.1"
   },
   "scripts": {
-    "server": "node main.js",
+    "start": "node main.js",
     "dev": "nodemon main.js"
   },
   "devDependencies": {
