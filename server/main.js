@@ -1,3 +1,3 @@
-const { server, port } = require('./src/source');
+const { init_server } = require('./src/source');
 
-server.listen(port, () => console.log(`server running on port: ${port}`))
+init_server()
