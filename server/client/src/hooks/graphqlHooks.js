@@ -7,7 +7,7 @@ import {
 } from "@apollo/client";
 import React from 'react';
 
-export default function UseGQL() {
+export default function useGQL() {
     const [GQL, setGQL] = React.useState(null)
     const [GQL_ERROR, setGQL_ERROR] = React.useState(false)
   

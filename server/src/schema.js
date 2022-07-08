@@ -2,6 +2,7 @@ const { prisma } = require('./db');
 const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
+
   type Post {
     content: String
     id: ID!
@@ -18,6 +19,7 @@ const typeDefs = gql`
     createDraft(content: String, title: String!): Post!
     publish(id: ID!): Post
   }
+  
 `
 
 const resolvers = {
