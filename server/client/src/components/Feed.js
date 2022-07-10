@@ -19,12 +19,13 @@ export default function Feed () {
         } else {
             setErrorState(false)
         }
+        console.log(loading, error)
     },[loading, error])
 
+
+    
     useEffect(() => {console.log(`DATA: ${data}`)}, [data])
     return (
-        <div>
-            <p>feed goes here.</p>
-        </div>
+        <p>feed goes here</p>
     )   
 }
